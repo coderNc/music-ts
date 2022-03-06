@@ -1,0 +1,2 @@
+export const CHANGE_USER_INFO = "user/CHANGE_USER_INFO";
+export type CHANGE_USER_INFO_TYPE = typeof CHANGE_USER_INFO;
