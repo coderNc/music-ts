@@ -1,7 +1,9 @@
 import React, { FC, memo, useEffect } from "react";
 import BlockHeader from "@/components/block-header";
+import Card from "@/components/card";
 import { HotRecommendWrapper } from "./style";
-import { getResource } from '@/services/recommend'
+import { getHotRecommendAction } from "../../store/actionCreators";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 const HotRecommend: FC = memo(() => {
   const params = {
@@ -14,15 +16,28 @@ const HotRecommend: FC = memo(() => {
       { title: "电子", link: "/discover/playlist/?cat=电子" },
     ],
     hasMore: true,
-    moreData: { title: '更多', link: '/discover/playlist/' }
+    moreData: { title: "更多", link: "/discover/playlist/" },
   };
+  const { recommend } = useSelector(
+    (state) => ({
+      recommend: state?.getIn(["recommend", "recommend"]),
+    }),
+    shallowEqual
+  );
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    getResource();
-  }, [])
+    dispatch(getHotRecommendAction());
+  }, [dispatch]);
+
   return (
     <HotRecommendWrapper>
-      <BlockHeader { ...params }></BlockHeader>
-      HELLO
+      <BlockHeader {...params}></BlockHeader>
+      <div className="recommend-list">
+        {recommend?.map?.((item: any, index: number) => {
+          return <Card key={index} data={item} index={index} />;
+        })}
+      </div>
     </HotRecommendWrapper>
   );
 });

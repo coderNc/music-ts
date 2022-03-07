@@ -7,7 +7,7 @@ import { message as Message } from 'antd';
 export default new Request({
   baseURL: BASE_URL,
   timeout: TIMEOUT,
-  // withCredentials: true,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json; charset=utf-8'
   },

@@ -14,4 +14,14 @@ export default defineConfig({
       }
     }),
   ],
+  server: {
+    proxy: {
+      // 选项写法
+      '/api': {
+        target: 'http://123.207.32.32:9001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    }
+  }
 });
